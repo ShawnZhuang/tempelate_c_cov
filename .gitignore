@@ -1,0 +1,6 @@
+*.o
+*.info
+*.gcda
+*.gcno
+reports/*
+main
