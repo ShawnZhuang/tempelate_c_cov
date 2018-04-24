@@ -1,9 +1,7 @@
 #!/bin/bash
 
-. ./sys.cfg
-
 # seting default various
-PROG=${PROG:-main}
+PROG=${PROG:-${1}}
 
 # testcases
 ./${PROG}

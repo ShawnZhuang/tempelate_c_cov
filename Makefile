@@ -1,9 +1,10 @@
+include cfg.mk
 COBJFILE = main.o
 CC =gcc
 CFLAGS=-fprofile-arcs -ftest-coverage
 
 PROG ?= main
-
+WEB_BROWSER?=firefox
 
 all:${PROG}
 
@@ -23,14 +24,15 @@ COV_INFO?=cov.info
 RESULT=reports/result_`date +%Y%m%d`
 
 tc:${PROG}
-	sh testcase.sh
+	sh testcase.sh ${PROG}
 
 GCOV:tc
 	gcov *.c
 LCOV:GCOV 
 	lcov -d ./ -b ./ -c -o ${COV_INFO}
 	genhtml ${COV_INFO} -o ${RESULT}
-	echo see ${RESULT}/index.html
+	@echo "see ${RESULT}/index.html"
+#@${WEB_BROWSER} ${RESULT}/index.html
 
 clean:
 	-@rm ${COBJFILE} ${PROG} 
