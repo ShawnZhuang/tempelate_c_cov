@@ -1,21 +1,31 @@
 include cfg.mk
+PRO_DIR=$(shell pwd)
+CFLAGS +=-I${PRO_DIR}/include
+export CFLAGS
 COBJFILE = main.o
-CC =gcc
-CFLAGS=-fprofile-arcs -ftest-coverage
+# CC =gcc
+
 
 PROG ?= main
 WEB_BROWSER?=firefox
+SUBDIR := module 
+
+.PHONY:tc clean GCOV LCOV ${SUBDIR} ${PROG}
+.IGNORE:clean
+.SILENT:clean
 
 all:${PROG}
+	@for dir in ${SUBDIR}; do\
+		${MAKE} -C $${dir} $@; done
 
 ${PROG}:${COBJFILE}
 	@${CC} ${CFLAGS} $< -o $@
+
 
 ${COBJFILE}: *.c
 	@${CC} ${CFLAGS} -c $< -o $@ 
 
 
-.PHONY:exe tc clean GCOV LCOV
 
 
 
@@ -38,3 +48,11 @@ clean:
 	-@rm ${COBJFILE} ${PROG} 
 	-@rm *.gcno *.gcda ${COV_INFO} 
 	-@rm -r ${RESULT}
+	@ for dir in ${SUBDIR}; do\
+		${MAKE} -C $${dir} $@;\
+	done
+
+
+module:
+	@${MAKE} -C $@ LCOV COV=y
+

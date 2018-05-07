@@ -1,6 +1,10 @@
 *.o
+*.a
 *.info
 *.gcda
 *.gcno
+*.png
+*.html
+*.css
 reports/*
-main
+test
