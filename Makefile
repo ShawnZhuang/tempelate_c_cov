@@ -1,7 +1,4 @@
 include cfg.mk
-PRO_DIR=$(shell pwd)
-CFLAGS +=-I${PRO_DIR}/include
-export CFLAGS
 COBJFILE = main.o
 # CC =gcc
 
@@ -55,4 +52,3 @@ clean:
 
 module:
 	@${MAKE} -C $@ LCOV COV=y
-
