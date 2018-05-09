@@ -1,7 +1,5 @@
 include cfg.mk
 COBJFILE = main.o
-# CC =gcc
-
 
 PROG ?= main
 WEB_BROWSER?=firefox
